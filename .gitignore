@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+
+# Local environment and secrets
+.env*
+
+# macOS
+.DS_Store
+
+# Netlify CLI local state
+.netlify/

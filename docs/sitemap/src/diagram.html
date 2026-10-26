@@ -1,0 +1,328 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="fonts.css"><style>
+:root{--bg1:#F5FAFF;--bg2:#EAF4FE;--line:#E3EEF9;--line2:#D6EAFC;--btn:#8CC8F5;--btnink:#062A57;--blue:#1668B8;--navy:#04306D;--text:#10274A;--muted:#4F6280;
+--green:#0A7A2F;--green50:#E6F9EC;--yel:#8A5A00;--yel50:#FFF4DC;--red:#C2141B;--red50:#FDECEC}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Nunito,Kanit,"DejaVu Sans",sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+.th{font-family:Kanit,Nunito,sans-serif;font-weight:400;color:var(--muted)}
+.mono{font-family:"DejaVu Sans Mono",monospace;font-size:.86em;color:var(--blue)}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;font-weight:800;font-size:15px;padding:3px 11px;white-space:nowrap;line-height:1.35}
+.s-built{background:var(--green50);color:var(--green);border:1.5px solid #9EDDB2}
+.s-launch{background:#E0F0FF;color:var(--blue);border:1.5px solid #8CC8F5}
+.s-p2{background:#F1F3F6;color:#5D6B80;border:1.5px dashed #9AA7B8}
+.t-draft{background:var(--yel50);color:var(--yel);border:1.5px solid #EBC777}
+.t-noidx{background:#fff;color:var(--muted);border:1.5px solid var(--line2)}
+.lv{background:var(--navy);color:#fff;border:0}
+.dot{width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block}
+
+body{width:3840px;background:var(--bg1);padding:70px 80px 80px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;padding-bottom:30px;border-bottom:2px solid var(--line2)}
+.brand{display:flex;align-items:center;gap:34px} .brand img{height:78px}
+.brand h1{font-size:54px;font-weight:800;color:var(--navy);letter-spacing:-.5px;line-height:1.05} .brand h1 small{font-size:26px;font-weight:600;color:var(--muted);margin-left:14px}
+.brand p{font-size:22px;color:var(--muted);margin-top:8px;font-weight:600}
+.legend{display:flex;flex-direction:column;gap:12px;align-items:flex-end} .legend .row{display:flex;gap:18px;align-items:center;font-size:18px;font-weight:700}
+.lg{display:inline-flex;align-items:center;gap:8px} .sw{width:16px;height:16px;border-radius:5px;display:inline-block;margin-right:6px;vertical-align:-2px}
+.legend .lbl{color:var(--muted);font-weight:800;font-size:15px;letter-spacing:1px;text-transform:uppercase}
+.gbar{margin:28px 0 0;background:#fff;border:1.5px solid var(--line2);border-radius:20px;padding:16px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.gbar .lbl{font-weight:800;color:var(--navy);font-size:19px;margin-right:6px} .gel{background:var(--bg2);border-radius:12px;padding:8px 14px;font-size:17px;font-weight:600}
+.homewrap{display:flex;justify-content:center;margin-top:46px}
+.home{width:1100px;background:#fff;border:3px solid var(--navy);border-radius:26px;padding:26px 34px;box-shadow:0 14px 40px rgba(4,48,109,.10);position:relative}
+.home .nm{font-size:34px;font-weight:800;color:var(--navy);display:flex;align-items:baseline;gap:14px} .home .nm .th{font-size:22px}
+.home .key{font-size:19px;line-height:1.5;margin-top:10px} .home .chips{margin-top:10px}
+.cols{display:flex;gap:36px;margin-top:110px;align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:14px}
+.gh{background:var(--ink);color:#fff;border-radius:18px;padding:14px 18px;} .gh .th{color:rgba(255,255,255,.85);font-size:17px}
+.gname{font-size:24px;font-weight:800;display:flex;justify-content:space-between;align-items:center} .gn{background:rgba(255,255,255,.22);border-radius:999px;padding:1px 12px;font-size:18px}
+.card{background:#fff;border:2px solid var(--gl);border-left:7px solid var(--ink);border-radius:16px;padding:13px 15px 14px;box-shadow:0 4px 14px rgba(4,48,109,.05)}
+.card.st-p2{border-style:dashed;border-left-style:solid;background:#FBFCFE;border-left-color:#AEB9C8}
+.card.st-p2 .nm{color:#3C4B63}
+.card .nm{font-size:21px;font-weight:800;color:var(--ink);line-height:1.2} .card .nm .th{font-size:16px;margin-top:2px}
+.card .url{font-size:15px;margin-top:5px;word-break:break-all}
+.card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px} .card .chip{font-size:13px;padding:2px 9px}
+.card .key{font-size:15.5px;line-height:1.42;margin-top:8px;color:var(--text)}
+.today{margin-top:7px;font-size:13.5px;font-weight:700;color:var(--muted);background:var(--bg2);border-radius:8px;padding:3px 9px;display:inline-block}
+.kid{margin-left:34px;display:flex;flex-direction:column;gap:14px;position:relative}
+.kid:before{content:"";position:absolute;left:-20px;top:-14px;bottom:30px;border-left:2.5px solid var(--gl)}
+.kid>.card{position:relative} .kid>.card:before{content:"";position:absolute;left:-22px;top:30px;width:15px;border-top:2.5px solid var(--gl)}
+.arr{text-align:center;color:var(--ink);font-size:26px;font-weight:800;line-height:.7;margin:-4px 0}
+.branch{font-size:15px;font-weight:800;color:var(--red);background:var(--red50);border-radius:10px;padding:6px 12px;margin-top:6px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:20px} .split .kid{margin-left:30px}
+.subh{font-weight:800;color:var(--ink);font-size:18px;margin:2px 0 10px;padding-left:4px}
+.kid3{margin-left:34px}
+.routes{display:flex;flex-wrap:wrap;gap:8px;margin-top:-4px} .routes span{background:var(--tint);color:var(--ink);font-weight:800;font-size:15px;border-radius:10px;padding:5px 12px;border:1.5px solid var(--gl)}
+.pnote{font-size:15px;color:#7B8798;line-height:1.5;background:#fff;border:1.5px dashed var(--line2);border-radius:14px;padding:10px 14px} .pnote b{color:var(--muted)}
+.lock{font-size:15px;font-weight:800;color:var(--muted);background:#fff;border:1.5px solid var(--line2);border-radius:12px;padding:8px 12px}
+#wires{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+.bottom{display:grid;grid-template-columns:1fr 760px;gap:36px;margin-top:64px}
+.jbox,.glance{background:#fff;border:1.5px solid var(--line2);border-radius:24px;padding:24px 28px}
+.jbox h3,.glance h3{font-size:28px;color:var(--navy);font-weight:800;margin-bottom:14px} .jbox h3 .th,.glance h3 .th{font-size:19px;margin-left:8px}
+.jrow{display:grid;grid-template-columns:330px 1fr;gap:18px;padding:12px 0;border-top:1.5px solid var(--line)}
+.jn{font-size:20px;font-weight:700} .jn b{background:var(--navy);color:#fff;border-radius:8px;padding:1px 9px;margin-right:6px} .jn .th{font-size:16px;margin-top:3px}
+.jsteps{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.js{background:var(--tint);color:var(--ink);border:1.5px solid var(--gl);border-radius:12px;padding:7px 13px;font-weight:800;font-size:17px}
+.ja{color:var(--blue);font-weight:800;font-size:22px}
+.jnote{flex-basis:100%;font-size:15.5px;color:var(--muted);font-weight:600;margin-top:2px}
+.glance table{width:100%;border-collapse:collapse;font-size:19px} .glance th{text-align:right;color:var(--muted);font-size:15px;padding:6px 8px;text-transform:uppercase;letter-spacing:.5px}
+.glance th:first-child,.glance td:first-child{text-align:left} .glance td{text-align:right;padding:6px 8px;border-top:1.5px solid var(--line);font-weight:700}
+.glance .tot td{font-weight:800;color:var(--navy);border-top:2.5px solid var(--navy)}
+.glance p{font-size:15px;color:var(--muted);margin-top:12px} .scope{margin-top:12px;background:var(--bg2);border-radius:14px;padding:8px 16px;font-size:19px;font-weight:700;color:var(--navy)} .scope b{font-size:30px;margin-right:8px} .scope .th{display:block;font-size:15px} .glance h4{font-size:19px;color:var(--navy);margin:16px 0 6px} .new{padding-left:22px;font-size:16px;line-height:1.5}
+.foot{margin-top:30px;display:flex;justify-content:space-between;font-size:16px;color:var(--muted);font-weight:600}
+</style></head><body>
+<div class="top"><div class="brand"><img src="assets/logo-horizontal.png"><div><h1>Website Sitemap v2 <small>แผนผังเว็บไซต์ · for CEO review</small></h1>
+<p>Founded 19 Jan 2024 · 200+ vehicles · Private airport transfers in Bangkok, Pattaya &amp; Phuket</p></div></div>
+<div class="legend">
+ <div class="row"><span class="lbl">Groups</span><span class="lg"><i class="sw" style="background:#04306D"></i>Core</span><span class="lg"><i class="sw" style="background:#0B5CA8"></i>Booking funnel</span><span class="lg"><i class="sw" style="background:#0A7A2F"></i>SEO landing</span><span class="lg"><i class="sw" style="background:#0B7285"></i>Support</span><span class="lg"><i class="sw" style="background:#5A3FB0"></i>Trust &amp; Legal</span><span class="lg"><i class="sw" style="background:#8A5A00"></i>Partner / B2B</span><span class="lg"><i class="sw" style="background:#4F6280"></i>Back office</span></div>
+ <div class="row"><span class="lbl">Status</span><span class="chip s-built"><i class=dot></i>Built</span><span class="th">มีใน build</span><span class="chip s-launch"><i class=dot></i>Launch</span><span class="th">ทำก่อนเปิดเว็บ</span><span class="chip s-p2">Phase 2</span><span class="th">เฟส 2</span>
+  <span class="chip t-draft">Draft</span><span class="chip t-noidx">noindex</span></div>
+ <div class="row"><span class="lbl">Levels</span><span class="chip lv">L0</span> Home <span class="chip lv">L1</span> section <span class="chip lv">L2</span> sub-page <span class="chip lv">L3</span> template · <span class="today" style="margin:0">Today: …</span> = currently a section of the one-page build</div>
+</div></div>
+<div class="gbar"><span class="lbl">On every page · ทุกหน้า</span><span class="gel">Header nav: Routes & Prices · Fleet · Charter · Service info · Help · <b>Book & Pay</b></span><span class="gel">Footer: About · Contact · Booking policy · Terms · Privacy · Partners</span><span class="gel">Language switch TH / EN / 中文 + hreflang</span><span class="gel">Floating LINE · WhatsApp — questions only</span><span class="gel">Mobile sticky “Book & Pay” button</span><span class="gel">Payment: online via Beam only · no cash</span></div>
+<div class="homewrap"><div class="home" id="c-home"><div class="nm">Home <span class="mono" style="font-size:20px">/</span><span class="th">หน้าแรก</span></div>
+<div class="chips"><span class="chip lv">L0</span><span class="chip s-built"><i class=dot></i>Built</span> <span class="today">Today: index.html (one-page build)</span></div><div class="key">Hero + search widget (instant fixed price) · trust strip: since 2024 · 200+ vehicles · partners as grey text · popular routes · fleet teaser · how it works · FAQ teaser</div></div></div>
+<div class="cols" id="cols"><div class="col" id="col-core" style="width:440px;--ink:#04306D;--tint:#EAF4FE;--gl:#9CC3EC">
+<div class="gh"><div class="gname">Core <span class="gn">6</span></div><div class="th">หน้าหลัก</div></div>
+<div class="card st-built lvl1 " id="c-routes" style="--ink:#04306D;--tint:#EAF4FE;--gl:#9CC3EC">
+ <div class="ch"><div class="nm">Routes &amp; Prices<div class="th">เส้นทางและราคา</div></div></div>
+ <div class="url mono">/routes-prices</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">Fixed per-vehicle price table · airport × zone × 6 classes · filter by airport</div><div class="today">Today: Home #routes</div>
+</div><div class="card st-built lvl1 " id="c-fleet" style="--ink:#04306D;--tint:#EAF4FE;--gl:#9CC3EC">
+ <div class="ch"><div class="nm">Fleet<div class="th">ประเภทรถ</div></div></div>
+ <div class="url mono">/fleet</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">6 vehicle classes: seats · bags · sample models · photos · compare</div><div class="today">Today: Home #fleet</div>
+</div><div class="kid"><div class="card st-built lvl2 " id="c-luggage" style="--ink:#04306D;--tint:#EAF4FE;--gl:#9CC3EC">
+ <div class="ch"><div class="nm">Luggage guide<div class="th">คู่มือขนาดกระเป๋า</div></div></div>
+ <div class="url mono">/fleet/luggage</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">Bag sizes vs. vehicle capacity · oversized items (surf, golf, bike, wheelchair)</div><div class="today">Today: Home #luggage-size</div>
+</div></div><div class="card st-built lvl1 " id="c-charter" style="--ink:#04306D;--tint:#EAF4FE;--gl:#9CC3EC">
+ <div class="ch"><div class="nm">Hourly charter<div class="th">เช่ารถพร้อมคนขับรายชั่วโมง</div></div></div>
+ <div class="url mono">/charter</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">Car + driver by the hour · minimum hours · what&#x27;s included · get a quote</div><div class="today">Today: Home #charter</div>
+</div><div class="card st-built lvl1 " id="c-services" style="--ink:#04306D;--tint:#EAF4FE;--gl:#9CC3EC">
+ <div class="ch"><div class="nm">Service info<div class="th">ข้อมูลบริการ</div></div></div>
+ <div class="url mono">/service-info</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">Meet &amp; greet with name sign · flight tracking · free waiting · child seats · stops · online payment only</div><div class="today">Today: Home #info</div>
+</div></div><div class="col" id="col-book" style="width:440px;--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">
+<div class="gh"><div class="gname">Booking funnel <span class="gn">6</span></div><div class="th">ขั้นตอนจอง</div></div>
+<div class="card st-built lvl1 " id="c-b1" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">
+ <div class="ch"><div class="nm">1 · Search &amp; quote<div class="th">ค้นหาและดูราคา</div></div></div>
+ <div class="url mono">/ (widget) · /book</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">Pickup ↔ drop-off · date &amp; time · pax · bags · child seats → instant fixed price</div><div class="today">Today: Home widget</div>
+</div>
+<div class="arr">↓</div>
+<div class="card st-built lvl2 " id="c-b2" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">
+ <div class="ch"><div class="nm">2 · Choose vehicle<div class="th">เลือกรถ</div></div></div>
+ <div class="url mono">/book/vehicle</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-built"><i class=dot></i>Built</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">6 classes: price · seats · bags · &#x27;fits your group&#x27; hint</div><div class="today">Today: price result</div>
+</div>
+<div class="arr">↓</div>
+<div class="card st-built lvl2 " id="c-b3" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">
+ <div class="ch"><div class="nm">3 · Details &amp; review<div class="th">กรอกข้อมูลและตรวจสอบ</div></div></div>
+ <div class="url mono">/booking</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-built"><i class=dot></i>Built</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">Name · phone · email · flight no. · notes · extras · agree Terms + Privacy</div><div class="today">Today: checkout step 1</div>
+</div>
+<div class="arr">↓</div>
+<div class="card st-built lvl2 " id="c-b4" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">
+ <div class="ch"><div class="nm">4 · Pay with Beam<div class="th">ชำระเงินผ่าน Beam</div></div></div>
+ <div class="url mono">/booking/payment</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-built"><i class=dot></i>Built</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">Card · PromptPay QR · mobile banking · e-wallet · online only, no cash</div><div class="today">Today: checkout step 2</div>
+</div>
+<div class="arr">↓</div>
+<div class="card st-built lvl2 " id="c-b5" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">
+ <div class="ch"><div class="nm">5 · Confirmation<div class="th">จองสำเร็จ</div></div></div>
+ <div class="url mono">/booking/confirmed</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-built"><i class=dot></i>Built</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">Booking ref · trip summary · what happens next · confirmation email</div><div class="today">Today: checkout step 3</div>
+</div><div class="branch">↳ if payment fails at step 4 · ชำระไม่ผ่าน</div><div class="card st-launch lvl2 " id="c-b6" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">
+ <div class="ch"><div class="nm">Payment failed · retry<div class="th">ชำระไม่สำเร็จ</div></div></div>
+ <div class="url mono">/booking/payment-failed</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-launch"><i class=dot></i>Launch</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">Clear reason · retry payment · trip details kept · contact help</div>
+</div></div><div class="col" id="col-seo" style="width:900px;--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+<div class="gh"><div class="gname">SEO landing <span class="gn">10</span></div><div class="th">หน้าดึงคนจาก Google</div></div>
+<div class="card st-launch lvl1 " id="c-hub" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">Airport transfers hub<div class="th">รวมบริการรับส่งสนามบิน</div></div></div>
+ <div class="url mono">/airport-transfers</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-launch"><i class=dot></i>Launch</span></div>
+ <div class="key">All airports &amp; cities served · from-prices · links to every landing page</div>
+</div><div class="split"><div><div class="subh">Airports · สนามบิน</div><div class="kid"><div class="card st-launch lvl2 " id="c-bkk" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">Suvarnabhumi (BKK)<div class="th">สุวรรณภูมิ</div></div></div>
+ <div class="url mono">/suvarnabhumi-airport-transfer</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-launch"><i class=dot></i>Launch</span></div>
+ <div class="key">From-price table to top destinations · meeting point · travel times · airport FAQ · prefilled widget</div>
+</div><div class="card st-launch lvl2 " id="c-dmk" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">Don Mueang (DMK)<div class="th">ดอนเมือง</div></div></div>
+ <div class="url mono">/don-mueang-airport-transfer</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-launch"><i class=dot></i>Launch</span></div>
+ <div class="key">From-price table to top destinations · meeting point · travel times · airport FAQ · prefilled widget</div>
+</div><div class="card st-launch lvl2 " id="c-hkt" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">Phuket (HKT)<div class="th">ภูเก็ต</div></div></div>
+ <div class="url mono">/phuket-airport-transfer</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-launch"><i class=dot></i>Launch</span></div>
+ <div class="key">From-price table to top destinations · meeting point · travel times · airport FAQ · prefilled widget</div>
+</div><div class="card st-p2 lvl2 " id="c-utp" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">U-Tapao (UTP)<div class="th">อู่ตะเภา</div></div></div>
+ <div class="url mono">/u-tapao-airport-transfer</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-p2">Phase 2</span></div>
+ <div class="key">From-price table to top destinations · meeting point · travel times · airport FAQ · prefilled widget</div>
+</div></div></div><div><div class="subh">Cities · เมือง</div><div class="kid"><div class="card st-launch lvl2 " id="c-c-bkk" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">Bangkok<div class="th">กรุงเทพฯ</div></div></div>
+ <div class="url mono">/bangkok-transfer</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-launch"><i class=dot></i>Launch</span></div>
+ <div class="key">Areas &amp; hotels zones · airport options · prices · tips</div>
+</div><div class="card st-launch lvl2 " id="c-c-pty" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">Pattaya<div class="th">พัทยา</div></div></div>
+ <div class="url mono">/pattaya-transfer</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-launch"><i class=dot></i>Launch</span></div>
+ <div class="key">Areas &amp; hotels zones · airport options · prices · tips</div>
+</div><div class="card st-launch lvl2 " id="c-c-hkt" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">Phuket<div class="th">ภูเก็ต</div></div></div>
+ <div class="url mono">/phuket-transfer</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-launch"><i class=dot></i>Launch</span></div>
+ <div class="key">Areas &amp; hotels zones · airport options · prices · tips (Patong · Kata · Karon …)</div>
+</div><div class="card st-p2 lvl2 " id="c-c-hh" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">Hua Hin<div class="th">หัวหิน</div></div></div>
+ <div class="url mono">/hua-hin-transfer</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-p2">Phase 2</span></div>
+ <div class="key">Areas &amp; hotels zones · airport options · prices · tips</div>
+</div></div></div></div><div class="kid kid3"><div class="card st-launch lvl3 wide" id="c-route" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">
+ <div class="ch"><div class="nm">Route pages (template)<div class="th">หน้าเส้นทาง A → B</div></div></div>
+ <div class="url mono">/transfer/{from}-to-{to}</div>
+ <div class="chips"><span class="chip lv">L3</span><span class="chip s-launch"><i class=dot></i>Launch</span></div>
+ <div class="key">Top 6 at launch, e.g. BKK→Bangkok · BKK→Pattaya · DMK→Bangkok · DMK→Pattaya · HKT→Patong · HKT→Kata/Karon · price per class</div>
+</div><div class="routes"><span>BKK → Bangkok</span><span>BKK → Pattaya</span><span>DMK → Bangkok</span><span>DMK → Pattaya</span><span>HKT → Patong</span><span>HKT → Kata / Karon</span></div></div></div><div class="col" id="col-sup" style="width:440px;--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">
+<div class="gh"><div class="gname">Support <span class="gn">4</span></div><div class="th">ช่วยเหลือ</div></div>
+<div class="card st-built lvl1 " id="c-help" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">
+ <div class="ch"><div class="nm">Help centre &amp; FAQ<div class="th">ศูนย์ช่วยเหลือ / FAQ</div></div></div>
+ <div class="url mono">/help</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">12 FAQs today → Phase 2 categories: before you book · at the airport · payments &amp; refunds · changes</div><div class="today">Today: Home #faq</div>
+</div><div class="kid"><div class="card st-launch lvl2 " id="c-meet" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">
+ <div class="ch"><div class="nm">Meeting points<div class="th">จุดนัดพบ</div></div></div>
+ <div class="url mono">/help/meeting-points</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-launch"><i class=dot></i>Launch</span></div>
+ <div class="key">Per airport/terminal: where the driver waits · photos · what if you can&#x27;t find the driver</div>
+</div></div><div class="card st-launch lvl1 " id="c-manage" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">
+ <div class="ch"><div class="nm">Manage booking<div class="th">จัดการการจอง</div></div></div>
+ <div class="url mono">/manage</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-launch"><i class=dot></i>Launch</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">Find by booking ref + email · view · request change · cancel (free ≥24 h) · receipt</div>
+</div><div class="card st-built lvl1 " id="c-contact" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">
+ <div class="ch"><div class="nm">Contact<div class="th">ติดต่อเรา</div></div></div>
+ <div class="url mono">/contact</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">LINE · WhatsApp (questions only) · phone · email · office address</div>
+</div></div><div class="col" id="col-trust" style="width:440px;--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">
+<div class="gh"><div class="gname">Trust &amp; Legal <span class="gn">8</span></div><div class="th">ความน่าเชื่อถือ/กฎหมาย</div></div>
+<div class="card st-built lvl1 " id="c-about" style="--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">
+ <div class="ch"><div class="nm">About OKASTO<div class="th">เกี่ยวกับเรา</div></div></div>
+ <div class="url mono">/about</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">Since 19 Jan 2024 · 200+ vehicles · service areas · partners as grey text · company details</div>
+</div><div class="kid"><div class="card st-p2 lvl2 " id="c-standards" style="--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">
+ <div class="ch"><div class="nm">Safety &amp; service standards<div class="th">มาตรฐานความปลอดภัย</div></div></div>
+ <div class="url mono">/about/standards</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-p2">Phase 2</span></div>
+ <div class="key">Driver vetting · vehicle checks · insurance — verified facts only</div>
+</div><div class="card st-p2 lvl2 " id="c-reviews" style="--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">
+ <div class="ch"><div class="nm">Reviews<div class="th">รีวิว</div></div></div>
+ <div class="url mono">/reviews</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-p2">Phase 2</span></div>
+ <div class="key">Real, permissioned reviews only · hidden until available</div>
+</div></div><div class="card st-built lvl1 " id="c-policy" style="--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">
+ <div class="ch"><div class="nm">Booking &amp; cancellation policy<div class="th">นโยบายการจองและยกเลิก</div></div></div>
+ <div class="url mono">/booking-policy</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span></div>
+ <div class="key">Free cancellation ≥24 h · waiting time · no-show · changes</div><div class="today">Today: Home #info</div>
+</div><div class="card st-built lvl1 " id="c-terms" style="--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">
+ <div class="ch"><div class="nm">Terms &amp; Conditions<div class="th">ข้อกำหนดและเงื่อนไข</div></div></div>
+ <div class="url mono">/terms</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span><span class="chip t-draft">Draft</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">12 sections · draft, lawyer review before launch</div>
+</div><div class="card st-built lvl1 " id="c-privacy" style="--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">
+ <div class="ch"><div class="nm">Privacy Policy (PDPA)<div class="th">นโยบายความเป็นส่วนตัว</div></div></div>
+ <div class="url mono">/privacy</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span><span class="chip t-draft">Draft</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">10 sections · PDPA · draft, lawyer review before launch</div>
+</div><div class="card st-p2 lvl2 " id="c-cookies" style="--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">
+ <div class="ch"><div class="nm">Cookie notice<div class="th">นโยบายคุกกี้</div></div></div>
+ <div class="url mono">/cookies</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-p2">Phase 2</span></div>
+ <div class="key">Only if analytics / ad pixels are added · consent banner</div>
+</div><div class="card st-launch lvl1 " id="c-404" style="--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">
+ <div class="ch"><div class="nm">404 page<div class="th">ไม่พบหน้า</div></div></div>
+ <div class="url mono">/404</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-launch"><i class=dot></i>Launch</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">Short message · search widget · links to Home and Help</div>
+</div></div><div class="col" id="col-b2b" style="width:440px;--ink:#8A5A00;--tint:#FFF4DC;--gl:#EBC777">
+<div class="gh"><div class="gname">Partner / B2B <span class="gn">4</span></div><div class="th">พาร์ทเนอร์/องค์กร</div></div>
+<div class="card st-p2 lvl1 " id="c-partners" style="--ink:#8A5A00;--tint:#FFF4DC;--gl:#EBC777">
+ <div class="ch"><div class="nm">Partners &amp; travel agents<div class="th">พาร์ทเนอร์ / เอเจนต์</div></div></div>
+ <div class="url mono">/partners</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-p2">Phase 2</span></div>
+ <div class="key">Where to book us (Klook, Mozio, Talixo …) · agency enquiry form · net rates &amp; API on request</div>
+</div><div class="kid"><div class="card st-p2 lvl2 " id="c-corporate" style="--ink:#8A5A00;--tint:#FFF4DC;--gl:#EBC777">
+ <div class="ch"><div class="nm">Corporate travel<div class="th">ลูกค้าองค์กร</div></div></div>
+ <div class="url mono">/partners/business</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-p2">Phase 2</span></div>
+ <div class="key">Company bookings for staff &amp; guests · pay online via Beam · receipts</div>
+</div><div class="card st-p2 lvl2 " id="c-hotels" style="--ink:#8A5A00;--tint:#FFF4DC;--gl:#EBC777">
+ <div class="ch"><div class="nm">Hotels &amp; concierge<div class="th">โรงแรม / คอนเซียร์จ</div></div></div>
+ <div class="url mono">/partners/hotels</div>
+ <div class="chips"><span class="chip lv">L2</span><span class="chip s-p2">Phase 2</span></div>
+ <div class="key">Book guest transfers · bulk quote · co-branded booking link</div>
+</div></div><div class="card st-p2 lvl1 " id="c-drive" style="--ink:#8A5A00;--tint:#FFF4DC;--gl:#EBC777">
+ <div class="ch"><div class="nm">Drive with OKASTO<div class="th">ร่วมเป็นคนขับ / พาร์ทเนอร์รถ</div></div></div>
+ <div class="url mono">/drive-with-us</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-p2">Phase 2</span></div>
+ <div class="key">Driver &amp; fleet-partner requirements · documents · apply (form → email)</div>
+</div><div class="pnote"><b>Also available on</b> (grey text, no logos)<br>Klook · Mozio · Talixo · Drivado · Bookaway · Traveltip · WAUG</div></div><div class="col" id="col-back" style="width:400px;--ink:#4F6280;--tint:#EEF1F5;--gl:#B8C3D3">
+<div class="gh"><div class="gname">Back office <span class="gn">4</span></div><div class="th">หลังบ้าน</div></div>
+<div class="lock">Login required · not linked from the public site · ต้องล็อกอิน</div><div class="card st-built lvl1 " id="c-admin" style="--ink:#4F6280;--tint:#EEF1F5;--gl:#B8C3D3">
+ <div class="ch"><div class="nm">Price editor<div class="th">แก้ไขราคา</div></div></div>
+ <div class="url mono">/admin</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-built"><i class=dot></i>Built</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">Edit prices.json by route × class · login required</div>
+</div><div class="card st-p2 lvl1 " id="c-bookings" style="--ink:#4F6280;--tint:#EEF1F5;--gl:#B8C3D3">
+ <div class="ch"><div class="nm">Bookings &amp; payments<div class="th">รายการจอง/การชำระ</div></div></div>
+ <div class="url mono">/admin/bookings</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-p2">Phase 2</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">List · status · Beam payment state · refunds</div>
+</div><div class="card st-p2 lvl1 " id="c-dispatch" style="--ink:#4F6280;--tint:#EEF1F5;--gl:#B8C3D3">
+ <div class="ch"><div class="nm">Dispatch &amp; drivers<div class="th">จัดคนขับ</div></div></div>
+ <div class="url mono">/admin/dispatch</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-p2">Phase 2</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">Assign driver &amp; vehicle · daily run sheet</div>
+</div><div class="card st-p2 lvl1 " id="c-inbox" style="--ink:#4F6280;--tint:#EEF1F5;--gl:#B8C3D3">
+ <div class="ch"><div class="nm">Unified inbox<div class="th">กล่องข้อความรวม</div></div></div>
+ <div class="url mono">/admin/inbox</div>
+ <div class="chips"><span class="chip lv">L1</span><span class="chip s-p2">Phase 2</span><span class="chip t-noidx">noindex</span></div>
+ <div class="key">LINE + WhatsApp + email in one place</div>
+</div></div></div>
+<div class="bottom"><div class="jbox"><h3>Main user journeys <span class="th">เส้นทางผู้ใช้หลัก</span></h3><div class="jrow"><div class="jn"><b>J1</b> Book &amp; Pay (main path)<div class="th">จองและชำระเงิน</div></div><div class="jsteps"><span class="js" style="--ink:#04306D;--tint:#EAF4FE;--gl:#9CC3EC">Home / landing page</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Search &amp; quote</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Choose vehicle</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Details &amp; review</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Pay with Beam</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Confirmation + email</span><div class="jnote">If payment fails → Payment failed · retry (keeps trip details)</div></div></div><div class="jrow"><div class="jn"><b>J2</b> Manage booking<div class="th">จัดการการจอง</div></div><div class="jsteps"><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Confirmation email</span><span class="ja">→</span><span class="js" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">Manage booking (ref + email)</span><span class="ja">→</span><span class="js" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">View · change · cancel</span><span class="ja">→</span><span class="js" style="--ink:#5A3FB0;--tint:#F0ECFC;--gl:#C1B3EE">Policy check: free ≥24 h</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Refund via Beam</span><div class="jnote">Launch: change/cancel request by email · Phase 2: full self-service</div></div></div><div class="jrow"><div class="jn"><b>J3</b> Search engine → booking<div class="th">จาก Google สู่การจอง</div></div><div class="jsteps"><span class="js" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">Google: &#x27;BKK to Pattaya transfer&#x27;</span><span class="ja">→</span><span class="js" style="--ink:#0A7A2F;--tint:#E6F9EC;--gl:#8FD9A8">Route / airport page</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Prefilled widget</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Choose vehicle</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">… Pay → Confirmation</span><div class="jnote">SEO pages carry their own prefilled widget, so the funnel stays 4 clicks</div></div></div><div class="jrow"><div class="jn"><b>J4</b> Question before booking<div class="th">มีคำถามก่อนจอง</div></div><div class="jsteps"><span class="js" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">Help centre / FAQ</span><span class="ja">→</span><span class="js" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">LINE / WhatsApp (questions only)</span><span class="ja">→</span><span class="js" style="--ink:#0B5CA8;--tint:#E0F0FF;--gl:#7DBCF2">Back to Book &amp; Pay</span><div class="jnote">Chat answers questions; bookings and payments always go through Book &amp; Pay</div></div></div><div class="jrow"><div class="jn"><b>J5</b> Arrival day<div class="th">วันเดินทาง</div></div><div class="jsteps"><span class="js" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">Meeting points guide</span><span class="ja">→</span><span class="js" style="--ink:#04306D;--tint:#EAF4FE;--gl:#9CC3EC">Driver with name sign</span><span class="ja">→</span><span class="js" style="--ink:#0B7285;--tint:#E3F6F8;--gl:#86D0DA">Contact if needed</span><div class="jnote">Flight tracking + free waiting on arrivals</div></div></div><div class="jrow"><div class="jn"><b>J6</b> Partner / supply (Phase 2)<div class="th">พาร์ทเนอร์ (เฟส 2)</div></div><div class="jsteps"><span class="js" style="--ink:#8A5A00;--tint:#FFF4DC;--gl:#EBC777">Partners page</span><span class="ja">→</span><span class="js" style="--ink:#8A5A00;--tint:#FFF4DC;--gl:#EBC777">Enquiry form → email</span><span class="ja">→</span><span class="js" style="--ink:#8A5A00;--tint:#FFF4DC;--gl:#EBC777">Drive with OKASTO → apply</span><div class="jnote">Forms send email only at first; no partner portal yet</div></div></div></div><div class="glance"><h3>At a glance <span class="th">สรุปจำนวนหน้า</span></h3>
+<table><tr><th>Group</th><th>Built</th><th>Launch</th><th>Ph. 2</th><th>Total</th></tr><tr><td><i class="sw" style="background:#04306D"></i>Core</td><td>6</td><td>0</td><td>0</td><td><b>6</b></td></tr><tr><td><i class="sw" style="background:#0B5CA8"></i>Booking funnel</td><td>5</td><td>1</td><td>0</td><td><b>6</b></td></tr><tr><td><i class="sw" style="background:#0A7A2F"></i>SEO landing</td><td>0</td><td>8</td><td>2</td><td><b>10</b></td></tr><tr><td><i class="sw" style="background:#0B7285"></i>Support</td><td>2</td><td>2</td><td>0</td><td><b>4</b></td></tr><tr><td><i class="sw" style="background:#5A3FB0"></i>Trust &amp; Legal</td><td>4</td><td>1</td><td>3</td><td><b>8</b></td></tr><tr><td><i class="sw" style="background:#8A5A00"></i>Partner / B2B</td><td>0</td><td>0</td><td>4</td><td><b>4</b></td></tr><tr><td><i class="sw" style="background:#4F6280"></i>Back office</td><td>1</td><td>0</td><td>3</td><td><b>4</b></td></tr>
+<tr class="tot"><td>All pages</td><td>18</td><td>12</td><td>12</td><td>42</td></tr></table>
+<p>Route-page template counted once (6 routes at launch). Funnel steps count as pages.</p>
+<div class="scope"><b>30</b> pages for go-live (Built + Launch)<span class="th">หน้าที่ต้องพร้อมวันเปิดเว็บ</span></div>
+<h4>New in v2 · สิ่งที่เพิ่มจาก v1</h4><ul class="new"><li>Full booking funnel incl. failed-payment recovery</li><li>Manage booking + meeting points + help centre</li><li>SEO pages per airport, city and route</li><li>Partner / corporate / driver doors (Phase 2)</li><li>Build status on every page + journeys</li></ul></div></div>
+<div class="foot"><span>OKASTO · Sitemap v2 · prepared 26 Oct 2026 · proposal for CEO review — URLs and Phase 2 items to be confirmed</span><span>Partners shown as text only · no contact numbers or bank details in this document</span></div>
+<svg id="wires"></svg>
+<script>
+function wires(){
+ const s=document.getElementById('wires');s.setAttribute('width',document.body.scrollWidth);s.setAttribute('height',document.body.scrollHeight);
+ const h=document.getElementById('c-home').getBoundingClientRect();
+ const heads=[...document.querySelectorAll('.col .gh')].map(e=>e.getBoundingClientRect());
+ const busY=heads[0].top-55+scrollY, hx=h.left+h.width/2, hy=h.bottom+scrollY;
+ let d=`M${hx} ${hy} V${busY} M${heads[0].left+heads[0].width/2} ${busY} H${heads[heads.length-1].left+heads[heads.length-1].width/2}`;
+ heads.forEach(r=>{d+=` M${r.left+r.width/2} ${busY} V${r.top+scrollY}`});
+ s.innerHTML=`<path d="${d}" fill="none" stroke="#7DBCF2" stroke-width="3.5" stroke-linecap="round"/>`+heads.map(r=>`<circle cx="${r.left+r.width/2}" cy="${busY}" r="7" fill="#1668B8"/>`).join('')+`<circle cx="${hx}" cy="${hy}" r="7" fill="#04306D"/>`;
+}
+document.fonts.ready.then(wires);
+</script></body></html>

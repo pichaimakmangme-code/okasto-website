@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>OKASTO price editor (internal, not for public)</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <style>
+    :root{--blue:#0B5CC4;--navy:#04306D;--line:#d9e3ef;--sky:#eef6ff;--muted:#5b6b7f;--red:#c62828}
+    *{box-sizing:border-box}
+    body{margin:0;font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Thai","Noto Sans SC",sans-serif;color:var(--navy);background:#f6f9fc}
+    header{background:var(--navy);color:#fff;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
+    header h1{font-size:1.1rem;margin:0}
+    .warn{background:#fff4e5;border-bottom:2px solid #f0a020;color:#6b4200;padding:10px 20px;font-weight:600}
+    main{max-width:1200px;margin:0 auto;padding:18px 16px 80px}
+    section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 18px}
+    h2{font-size:1.05rem;margin:0 0 10px;color:var(--blue)}
+    h3{font-size:.98rem;margin:16px 0 8px}
+    table{border-collapse:collapse;width:100%;min-width:760px}
+    .tw{overflow-x:auto}
+    th,td{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left;vertical-align:middle}
+    th{background:var(--sky);font-size:.8rem;white-space:nowrap}
+    th small{display:block;font-weight:400;color:var(--muted)}
+    input,select{font:inherit;padding:5px 7px;border:1px solid #b9c7d8;border-radius:6px;width:100%;min-width:0;background:#fff}
+    input.num{width:86px;text-align:right}
+    input.wide{min-width:240px}
+    input.bad{border-color:var(--red);background:#fdecea}
+    input.blank{background:#f1f3f6}
+    td.dest{min-width:240px}
+    td.dest small{display:block;color:var(--muted)}
+    button{font:inherit;cursor:pointer;border-radius:7px;border:1px solid var(--blue);background:#fff;color:var(--blue);padding:6px 11px;font-weight:600}
+    button.primary{background:var(--blue);color:#fff}
+    button.danger{border-color:var(--red);color:var(--red);padding:3px 8px}
+    header button{border-color:#fff;color:#fff;background:transparent}
+    header button.primary{background:#fff;color:var(--navy)}
+    .row{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+    .row label{display:grid;gap:3px;font-size:.82rem;color:var(--muted)}
+    .row label input{width:130px}
+    .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+    .tabs button.on{background:var(--blue);color:#fff}
+    .hint{color:var(--muted);font-size:.85rem;margin:4px 0 10px}
+    .add{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin-top:10px;padding:10px;background:var(--sky);border-radius:8px}
+    .add label{display:grid;gap:3px;font-size:.8rem;color:var(--muted)}
+    .add input,.add select{width:auto;min-width:120px}
+    #status{font-size:.85rem;opacity:.9}
+    .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:8px}
+    code{background:var(--sky);padding:1px 5px;border-radius:4px}
+  </style>
+</head>
+<body>
+<header>
+  <h1>OKASTO price editor <small style="font-weight:400;opacity:.8">· internal</small></h1>
+  <span id="status"></span>
+  <div class="row">
+    <label style="color:#fff" title="Open a prices.json file from your computer">
+      <input type="file" id="fileIn" accept=".json,application/json" hidden>
+      <button type="button" id="openBtn">Open prices.json…</button>
+    </label>
+    <button type="button" class="primary" id="dlJson">Download prices.json</button>
+    <button type="button" class="primary" id="dlJs">Download prices-data.js</button>
+    <button type="button" id="dlCsv">Download CSV (Google Sheet)</button>
+  </div>
+</header>
+<div class="warn">⚠ Internal tool, NOT for public use. There is no password: do not link to this page. After editing, download <code>prices.json</code> and <code>prices-data.js</code>, then upload them to <code>data/prices.json</code> and <code>js/prices-data.js</code> on your host. This page never sends data anywhere. Your draft is kept only in this browser.</div>
+<main>
+  <section>
+    <h2>Settings</h2>
+    <div class="row">
+      <label>Markup % (applied to every price)<input type="number" id="markupPercent" step="0.5"></label>
+      <label>Round to (THB)<input type="number" id="roundTo" min="1" step="1"></label>
+      <label>Extra baby seat (THB / booking)<input type="number" id="extraBabySeat" min="0" step="10"></label>
+      <label>Last updated<input type="date" id="updated"></label>
+      <label style="display:flex;gap:6px;align-items:center;color:var(--navy)"><input type="checkbox" id="autoReverse" style="width:auto"> Offer reverse direction at the same price</label>
+    </div>
+    <p class="hint">Site price = rate × (1 + markup/100), rounded to the nearest "round to". Leave markup at 0 to show the rates exactly as entered.</p>
+    <div class="row"><button type="button" id="resetBtn">Discard draft (reload from site files)</button></div>
+  </section>
+
+  <section>
+    <h2>Transfer prices (THB per vehicle, one-way)</h2>
+    <p class="hint">Pick an origin. <b>Leave a box blank = that vehicle is NOT offered on that route.</b> Prices are the base rates. The site applies the markup.</p>
+    <div class="tabs" id="originTabs"></div>
+    <div class="tw"><table id="rateTable"></table></div>
+    <div class="add">
+      <label>Add destination: existing place<select id="addDestSel"></select></label>
+      <button type="button" id="addDestBtn">Add</button>
+      <span style="align-self:center;color:var(--muted)">or a new place:</span>
+      <label>ID (A–Z, 0–9, _)<input id="nId" placeholder="e.g. RAWAI" maxlength="20"></label>
+      <label>Group<select id="nType"><option>bangkok</option><option>pattaya</option><option>huahin</option><option selected>phuket</option><option>airport</option><option>other</option></select></label>
+      <label>Name EN<input id="nEn"></label>
+      <label>Name TH<input id="nTh"></label>
+      <label>Name ZH<input id="nZh"></label>
+      <button type="button" id="addNewBtn">Add new place</button>
+    </div>
+    <div class="add">
+      <label>Add an origin (a place customers start from)<select id="addOriginSel"></select></label>
+      <button type="button" id="addOriginBtn">Add origin</button>
+      <button type="button" class="danger" id="delOriginBtn">Remove this origin</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Charter (THB per hour, per vehicle)</h2>
+    <p class="hint">Blank = not offered (e.g. Electric SUV).</p>
+    <div class="tw"><table id="charterTable"></table></div>
+  </section>
+
+  <section>
+    <h2>Place names (shown on the site in TH / EN / ZH)</h2>
+    <p class="hint">"Area" groups places so the site does not offer duplicate reverse routes, e.g. all Pattaya zones are area PATTAYA. Leave it blank if unsure.</p>
+    <div class="tw"><table id="locTable"></table></div>
+  </section>
+
+  <section>
+    <h2>Vehicles</h2>
+    <p class="hint">Vehicle names and models are translated in <code>js/i18n.js</code>. Here you can edit capacity only. The column order is fixed.</p>
+    <div class="tw"><table id="vehTable"></table></div>
+  </section>
+</main>
+<script src="js/prices-data.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

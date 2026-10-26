@@ -1,0 +1,7 @@
+# Only needed if you deploy on Netlify and turn on Beam payments (see README "Online payment with Beam").
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  included_files = ["data/prices.json"]
