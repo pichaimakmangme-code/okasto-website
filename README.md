@@ -17,6 +17,8 @@ To go live, upload the whole folder to any static host (Netlify, Cloudflare Page
 | `js/app.js`, `js/places.js` | Site logic and place search |
 | `css/style.css` | Design (brand colours are at the top in `:root`) |
 | `img/`, `fonts/`, `favicon*`, `apple-touch-icon.png` | Logo files, OG image, self-hosted fonts |
+| `data/partners.json`, `js/partners-data.js` | **Demo partner booking data** (fake): Agency and Hotel, contract rates, public prices, credit flag, example history |
+| `p/<partnerId>/` | Private partner pages (booking, confirmation, monthly statement). `noindex`. Not linked from the public menu |
 
 ---
 
@@ -184,6 +186,43 @@ Set `enabled: true` and `paymentLinkUrl` to a link made in Lighthouse. The site 
 ### Booking JSON sent to `checkoutApiEndpoint`
 `reference, lang, currency, amount (THB, null = needs quote), pickup{label,zone}, dropoff{label,zone}, route{from,to,rateFrom,rateTo,reverse}, date, time, flight, passengers, luggage, vehicle, vehicleLabel, name, phone, email, notes, method, paymentMethod, policyAccepted`.
 Trips without a fixed price (outside the price zones) can't be paid online. The checkout offers sending them via LINE / WhatsApp for a quote.
+
+---
+
+## 3c. Partner booking links (demo)
+
+Travel agencies and hotels that have no booking platform get a **private link** instead of sending jobs through LINE or WhatsApp. There is no login. The page shows that partner's contract rates. Confirming a booking is simulated in the browser and shown as an email to **bookings@okasto.com** (not a LINE notification).
+
+Open `p/index.html`, or a partner folder directly. These work as static files (double-click) and on a static host (`/p/<partnerId>/` serves `p/<partnerId>/index.html`).
+
+| Partner | Type | Link | Credit |
+|---|---|---|---|
+| Example Travel Co. | Agency | `p/abc123/index.html` → `/p/abc123` | On, example limit ฿80,000 |
+| Example Beach Hotel | Hotel | `p/pty201/index.html` → `/p/pty201` | Off (Beam only) |
+
+Each folder also has `sent.html` (confirmation + example email) and `statement.html` (monthly statement).
+
+### Data file
+`data/partners.json` is the demo config. `js/partners-data.js` is the same object (`window.OKASTO_PARTNERS`) so the pages still load via `file://`, where `fetch` of the JSON is blocked. Edit the JSON, then copy it into the JS file. Do not put real rates or any Beam secret in either file.
+
+Each partner has `type` (`agency` or `hotel`), its own `rates` (contract, by route and vehicle) and `publicRates` (the public website price), and an example `history` for the statement month.
+
+### Payment on the booking form
+1. **Book now, settle at month end (credit).** No payment at booking. The trip is added to the partner's monthly invoice at the contract price. Only partners with `creditEnabled: true` see this option. `creditLimit` (THB) is optional and, when set, is shown on the form.
+2. **Pay now via OKASTO payment (Beam), kickback at month end.** The customer or partner pays the **public website price** online. The difference (public − contract) is the partner's commission, paid back at month end. The summary shows both amounts and the commission. Beam is a **placeholder**: nothing is charged, and there is **no cash option**.
+
+The confirmation page and the example email include the partner type and the payment method. Kickback bookings also show the commission.
+
+### Monthly statement
+`p/<partnerId>/statement.html` lists example bookings for October 2026, the **total owed** (credit bookings, contract price) and the **total kickback due** (Beam-paid bookings). A booking confirmed in this browser is added when storage is available. Everything is labelled as an example.
+
+### Privacy and search
+Every partner page has `<meta name="robots" content="noindex, nofollow, noarchive">`. They are not in the public menu and have no floating LINE button. This repo has **no `sitemap.xml`**. Do not add per-partner URLs (`/p/abc123`, `/p/pty201`, or any future id) to a sitemap. The visual sitemap (`docs/sitemap/`) describes the pattern `/p/<partnerId>` only.
+
+### Still TODO
+* A real backend (store bookings, enforce the credit limit, build the monthly invoice).
+* Actually sending the email to bookings@okasto.com.
+* A real Beam payment for the kickback option (see section 3b). The partner page must not gain a cash or bank-transfer option.
 
 ---
 

@@ -3,7 +3,9 @@ const path = require('path');
 const { chromium } = require('/workspace/pwtool/node_modules/playwright-core');
 (async () => {
   const [mode, out] = process.argv.slice(2);
-  const b = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox', '--allow-file-access-from-files'] });
+  const fs = require('fs');
+  const chrome = ['/usr/bin/google-chrome', '/usr/local/bin/google-chrome'].find(function (p) { return fs.existsSync(p); });
+  const b = await chromium.launch({ executablePath: chrome, args: ['--no-sandbox', '--allow-file-access-from-files'] });
   if (mode === 'diagram') {
     const p = await b.newPage({ viewport: { width: 3840, height: 1200 }, deviceScaleFactor: 2 });
     await p.goto('file://' + path.join(__dirname, 'diagram.html'));
