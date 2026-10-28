@@ -177,6 +177,34 @@ page("hotels","b2b",2,"Hotels & concierge","โรงแรม / คอนเซ
  "Book guest transfers · bulk quote · co-branded booking link",
  "Hotels as a steady referral channel.", ["Guest transfer flow for concierge","Bulk/recurring quote request","Optional referral link"],
  "Enquire")
+page("pbk","b2b",1,"Partner booking link","ลิงก์จองพาร์ทเนอร์","/p/<partnerId>","built",
+ "Private link per Agency or Hotel · own contract rates · no login · no main menu · no LINE button",
+ "Let a partner without a booking platform book at their own contract rates.",
+ ["Partner name, type badge (Agency or Hotel) and partner ID. Demo preview strip. Example data only",
+  "Contract rate table by route and vehicle — each partner has different example rates",
+  "Booking form: route, vehicle (left-facing fleet photos), flight and time, passenger, partner reference",
+  "Payment option A — Book now, settle at month end (credit): no payment now; contract price goes on the monthly invoice. Shown only when creditEnabled, with an optional credit limit",
+  "Payment option B — Pay now via OKASTO payment (Beam), kickback at month end: public website price paid online; commission = public − contract, paid back at month end. Beam is a placeholder (no cash, no real charge)",
+  "Confirm is simulated in the browser and addressed to bookings@okasto.com — not a LINE notification",
+  "noindex. Do not list /p/<partnerId> (or each partner) in sitemap.xml"],
+ "Confirm booking", index="noindex", today="p/<partnerId>/index.html")
+page("psent","b2b",2,"Booking sent","ส่งการจองแล้ว","/p/<partnerId>/sent","built",
+ "Confirmation plus example email to bookings@okasto.com · partner type · payment method · kickback",
+ "Show the partner that the booking would be emailed to the OKASTO team.",
+ ["Booking reference and trip summary",
+  "Partner type (Agency / Hotel) and the chosen payment method",
+  "Kickback bookings also show the commission (public price − contract price)",
+  "Example inbox mock addressed to bookings@okasto.com — not LINE. Nothing is actually sent yet",
+  "noindex"],
+ "New booking", index="noindex", today="p/<partnerId>/sent.html")
+page("pstm","b2b",2,"Monthly partner statement","ใบแจ้งยอดประจำเดือน","/p/<partnerId>/statement","built",
+ "Month's bookings · total owed on credit · total kickback due · labelled as an example",
+ "Show what the partner would be invoiced and what commission is due.",
+ ["List of the month's bookings with route, vehicle, payment method and amounts",
+  "Total owed: contract price of credit bookings (month-end invoice)",
+  "Total kickback due: commission on Beam-paid bookings",
+  "Per partner, example figures, noindex. Not listed per partner in sitemap.xml"],
+ "New booking", index="noindex", today="p/<partnerId>/statement.html")
 page("drive","b2b",1,"Drive with OKASTO","ร่วมเป็นคนขับ / พาร์ทเนอร์รถ","/drive-with-us","p2",
  "Driver & fleet-partner requirements · documents · apply (form → email)",
  "Grow supply (Welcome Pickups / Blacklane / GetTransfer all have this).",
@@ -200,7 +228,8 @@ JOURNEYS = [
  ("J3","Search engine → booking","จาก Google สู่การจอง",[("route","Google: 'BKK to Pattaya transfer'"),("route","Route / airport page"),("b1","Prefilled widget"),("b2","Choose vehicle"),("b5","… Pay → Confirmation")],"SEO pages carry their own prefilled widget, so the funnel stays 4 clicks"),
  ("J4","Question before booking","มีคำถามก่อนจอง",[("help","Help centre / FAQ"),("contact","LINE / WhatsApp (questions only)"),("b1","Back to Book & Pay")],"Chat answers questions; bookings and payments always go through Book & Pay"),
  ("J5","Arrival day","วันเดินทาง",[("meet","Meeting points guide"),("services","Driver with name sign"),("contact","Contact if needed")],"Flight tracking + free waiting on arrivals"),
- ("J6","Partner / supply (Phase 2)","พาร์ทเนอร์ (เฟส 2)",[("partners","Partners page"),("partners","Enquiry form → email"),("drive","Drive with OKASTO → apply")],"Forms send email only at first; no partner portal yet"),
+ ("J6","Partner / supply (Phase 2)","พาร์ทเนอร์ (เฟส 2)",[("partners","Partners page"),("partners","Enquiry form → email"),("drive","Drive with OKASTO → apply")],"Enquiry forms send email only. The private booking link (J7) is a separate noindex demo, not this marketing page."),
+ ("J7","Partner booking link (demo)","ลิงก์จองของพาร์ทเนอร์",[("pbk","Private link /p/<partnerId>"),("pbk","Credit or Beam kickback"),("psent","Email to bookings@okasto.com"),("pstm","Monthly statement")],"Example data, simulated in the browser. noindex — do not list each partner in sitemap.xml. Backend, real email and Beam are still TODO."),
 ]
 
 BENCH = [

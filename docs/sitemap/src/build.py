@@ -76,8 +76,14 @@ def diagram():
     sup = card(BYID["help"]) + '<div class="kid">' + card(BYID["meet"]) + '</div>' + card(BYID["manage"]) + card(BYID["contact"])
     trust = card(BYID["about"]) + '<div class="kid">' + card(BYID["standards"]) + '</div>' + "".join(card(BYID[i]) for i in ["reviews","policy","terms","privacy","cookies","404"])
     trust = card(BYID["about"]) + '<div class="kid">' + card(BYID["standards"]) + card(BYID["reviews"]) + '</div>' + "".join(card(BYID[i]) for i in ["policy","terms","privacy","cookies","404"])
-    b2b = card(BYID["partners"]) + '<div class="kid">' + card(BYID["corporate"]) + card(BYID["hotels"]) + '</div>' + card(BYID["drive"]) + \
-          f'<div class="pnote"><b>Also available on</b> (grey text, no logos)<br>{E(PARTNERS)}</div>'
+    paynote = ('<div class="pnote"><b>2 payment options</b> · ตัวเลือกการชำระบนฟอร์มจอง (not separate URLs)<br>'
+               '1. Book now, settle at month end (credit) — only if creditEnabled; optional credit limit. Due now ฿0; contract price on the monthly invoice.<br>'
+               '2. Pay now via OKASTO payment (Beam), kickback at month end — pay the public price; commission = public − contract. Placeholder only, no cash.</div>')
+    b2b = (card(BYID["partners"]) + '<div class="kid">' + card(BYID["corporate"]) + card(BYID["hotels"]) + '</div>' + card(BYID["drive"]) +
+           f'<div class="pnote"><b>Also available on</b> (grey text, no logos)<br>{E(PARTNERS)}</div>' +
+           '<div class="subh">Partner booking (Agency / Hotel)<div class="th" style="font-size:16px;font-weight:700;margin-top:2px">ลิงก์จองพาร์ทเนอร์</div></div>' +
+           card(BYID["pbk"]) + '<div class="kid">' + card(BYID["psent"]) + card(BYID["pstm"]) + '</div>' +
+           paynote)
     back = '<div class="lock">Login required · not linked from the public site · ต้องล็อกอิน</div>' + "".join(card(BYID[i]) for i in ["admin","bookings","dispatch","inbox"])
     W = {"core":440,"book":440,"seo":900,"sup":440,"trust":440,"b2b":440,"back":400}
     cols = "".join(column(g, inner, W[g]) for g, inner in [("core",core),("book",book),("seo",seo),("sup",sup),("trust",trust),("b2b",b2b),("back",back)])
@@ -94,7 +100,7 @@ def diagram():
 <tr class="tot"><td>All pages</td><td>{cnt["built"]}</td><td>{cnt["launch"]}</td><td>{cnt["p2"]}</td><td>{len(P)}</td></tr></table>
 <p>Route-page template counted once (6 routes at launch). Funnel steps count as pages.</p>
 <div class="scope"><b>{cnt["built"]+cnt["launch"]}</b> pages for go-live (Built + Launch)<span class="th">หน้าที่ต้องพร้อมวันเปิดเว็บ</span></div>
-<h4>New in v2 · สิ่งที่เพิ่มจาก v1</h4><ul class="new"><li>Full booking funnel incl. failed-payment recovery</li><li>Manage booking + meeting points + help centre</li><li>SEO pages per airport, city and route</li><li>Partner / corporate / driver doors (Phase 2)</li><li>Build status on every page + journeys</li></ul></div>'''
+<h4>New in v2 · สิ่งที่เพิ่มจาก v1</h4><ul class="new"><li>Full booking funnel incl. failed-payment recovery</li><li>Manage booking + meeting points + help centre</li><li>SEO pages per airport, city and route</li><li>Partner / corporate / driver doors (Phase 2)</li><li>Partner booking demo: private /p/&lt;partnerId&gt; link, statement, credit or Beam kickback (noindex)</li><li>Build status on every page + journeys</li></ul></div>'''
 
     legend = "".join(f'<span class="lg"><i class="sw" style="background:{g[3]}"></i>{E(g[1])}</span>' for g in GROUPS)
     globals_ = ["Header nav: Routes & Prices · Fleet · Charter · Service info · Help · <b>Book & Pay</b>",
@@ -220,7 +226,7 @@ def doc():
 <p class="note">Levels: L0 {lv[0]} · L1 {lv[1]} · L2 {lv[2]} · L3 {lv[3]} (route template, 6 routes at launch). “Built” = exists in the current build, many as sections of the one-page Home; the plan gives them their own URLs.</p>
 <h3>Status meaning</h3><ul><li>{chip_status("built")} exists in the current build (some need their own URL)</li><li>{chip_status("launch")} must be ready before go-live</li><li>{chip_status("p2")} after launch, when data / partners / backend are ready</li></ul></div>
 <div><h3>On every page</h3><ul><li>Header: Routes & Prices · Fleet · Charter · Service info · Help · <b>Book & Pay</b> button</li><li>Footer: About · Contact · Booking policy · Terms · Privacy · Partners · “Also available on” partner names (grey text)</li><li>Language switch TH / EN / 中文</li><li>Floating LINE / WhatsApp for questions only — never for booking or payment</li><li>Mobile: sticky “Book & Pay” bar</li></ul>
-<h3>URL and SEO rules</h3><ul><li>One URL per language: <span class="mono">/en/…</span> · <span class="mono">/th/…</span> · <span class="mono">/zh/…</span> with hreflang + x-default</li><li>Short English slugs, e.g. <span class="mono">/en/transfer/bkk-to-pattaya</span></li><li>Booking, manage, draft legal and admin pages: <b>noindex</b></li><li>Schema: Organization, FAQPage on FAQ/landing pages; XML sitemap + robots.txt</li><li>Every landing page has its own prefilled booking widget</li></ul>
+<h3>URL and SEO rules</h3><ul><li>One URL per language: <span class="mono">/en/…</span> · <span class="mono">/th/…</span> · <span class="mono">/zh/…</span> with hreflang + x-default</li><li>Short English slugs, e.g. <span class="mono">/en/transfer/bkk-to-pattaya</span></li><li>Booking, manage, draft legal and admin pages: <b>noindex</b></li><li>Partner booking links (<span class="mono">/p/&lt;partnerId&gt;</span>, booking-sent, monthly statement) are private: <b>noindex</b>, and must not be listed per partner in sitemap.xml</li><li>Schema: Organization, FAQPage on FAQ/landing pages; XML sitemap + robots.txt</li><li>Every landing page has its own prefilled booking widget</li></ul>
 <h3>Payment</h3><ul><li>Online only via Beam (card · PromptPay · mobile banking · e-wallet as enabled). No cash, no manual transfer.</li></ul></div></div>'''))
     # spec
     for gid, gname, gth, ink, tint, gl in GROUPS:
@@ -261,7 +267,7 @@ def doc():
 <li>U-Tapao (UTP) and Hua Hin landing pages are Phase 2; prices already exist for UTP.</li>
 <li>Manage booking is “lite” at launch (lookup + change/cancel request by email) because there is no booking backend yet.</li>
 <li>Route pages are generated from prices.json; travel times and distances are TBC and must not be guessed.</li>
-<li>Partner / B2B and driver-recruitment pages are proposals; commission, net rates and API need CEO decision.</li>
+<li>Partner / B2B and driver-recruitment pages are proposals; commission, net rates and API need CEO decision. A demo private booking link (/p/&lt;partnerId&gt;) is in the build for Agency and Hotel (example data, noindex, not listed per partner in sitemap.xml). Backend, email sending and Beam are still TODO.</li>
 <li>Corporate customers also pay online via Beam; tax-invoice process TBC.</li>
 <li>Reviews and safety pages appear only with real, verifiable content.</li>
 <li>Domain and final URL language prefix are TBC.</li></ol></div>
