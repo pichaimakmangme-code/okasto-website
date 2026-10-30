@@ -189,8 +189,43 @@ page("admin","back",1,"Price editor","แก้ไขราคา","/admin","bui
  "Keep prices current without a developer.", ["Edit price per route × vehicle class","Export/import prices.json"], "Save", index="noindex · no links", today="admin.html")
 page("bookings","back",1,"Bookings & payments","รายการจอง/การชำระ","/admin/bookings","p2",
  "List · status · Beam payment state · refunds", "One view of every booking.", ["Bookings with status","Beam payment state + refunds","Export CSV"], "—", index="noindex · no links")
-page("dispatch","back",1,"Dispatch & drivers","จัดคนขับ","/admin/dispatch","p2",
- "Assign driver & vehicle · daily run sheet", "Operations.", ["Assign driver/vehicle","Daily run sheet","Driver contact sent to guest"], "—", index="noindex · no links")
+page("dispatch","back",1,"Dispatch demo","เดโมจัดงานคนขับ","/dispatch","built",
+ "Role switcher · 2-tier dispatch · example data in the browser · noindex",
+ "Show how overflow jobs go to the regular team first, then to matching freelancers.",
+ ["Demo index with a role switcher: admin, regular drivers, freelancers, suspended, sign-up",
+  "Example data only, shared in this browser. No backend.",
+  "Tier 1: assign a regular driver directly, or release a 30-minute window only regulars can claim",
+  "Tier 2: when the window ends, matching freelancers (vehicle + zone) can Accept. First tap locks the job.",
+  "Urgent (under about 3 hours): open to everyone and/or add a bonus. Drivers see payout only, never the customer price.",
+  "noindex, not linked from the public site"],
+ "Open demo", index="noindex · no links", today="dispatch/index.html")
+page("dapp","back",2,"Driver app","แอปคนขับ","/dispatch/driver","built",
+ "Mobile job board · Accept · status steps · earnings · mock LINE login",
+ "Let a driver claim a matching job and update the trip.",
+ ["Mock LINE login (not connected to LINE)",
+  "Job board filtered by vehicle type and zone, with priority-window countdown and urgent/bonus badges",
+  "Job detail with Accept — the first tap locks the job so it cannot be claimed twice",
+  "My jobs: กำลังไป → ถึงจุดรับ → รับลูกค้าแล้ว → ส่งเสร็จ",
+  "Earnings show that driver's payout only. Freelancer cap of 3 open jobs. Auto-suspend after repeated cancellations.",
+  "noindex"],
+ "Accept job", index="noindex · no links", today="dispatch/driver.html")
+page("dsign","back",2,"Freelancer sign-up","สมัครฟรีแลนซ์","/dispatch/signup","built",
+ "Licence · vehicle registration · car photo · pending approval",
+ "A freelancer cannot see jobs until an admin approves the documents.",
+ ["Sign-up form and three document uploads, stored only in this browser",
+  "Pending-approval screen",
+  "Admin approves or suspends from the driver list",
+  "noindex"],
+ "Submit documents", index="noindex · no links", today="dispatch/signup.html")
+page("ddesk","back",2,"Dispatch desk","โต๊ะจัดงาน","/dispatch/admin","built",
+ "Jobs table · assign / release / open-to-all / bonus · drivers · monthly payout",
+ "Back office for the two-tier dispatch demo.",
+ ["Jobs with status and tier, including the regular-team countdown",
+  "Actions: assign to a regular driver, release for 30 minutes, open to everyone, add a bonus, cancel, reassign",
+  "Driver list: regular vs freelance, approve, suspend, rating, cancellation count",
+  "Monthly payout summary. The customer price is visible here only.",
+  "noindex"],
+ "Assign driver", index="noindex · no links", today="dispatch/admin.html")
 page("inbox","back",1,"Unified inbox","กล่องข้อความรวม","/admin/inbox","p2",
  "LINE + WhatsApp + email in one place", "Faster replies to questions.", ["Merge LINE, WhatsApp, email","Link chat to booking ref"], "—", index="noindex · no links")
 
@@ -201,6 +236,7 @@ JOURNEYS = [
  ("J4","Question before booking","มีคำถามก่อนจอง",[("help","Help centre / FAQ"),("contact","LINE / WhatsApp (questions only)"),("b1","Back to Book & Pay")],"Chat answers questions; bookings and payments always go through Book & Pay"),
  ("J5","Arrival day","วันเดินทาง",[("meet","Meeting points guide"),("services","Driver with name sign"),("contact","Contact if needed")],"Flight tracking + free waiting on arrivals"),
  ("J6","Partner / supply (Phase 2)","พาร์ทเนอร์ (เฟส 2)",[("partners","Partners page"),("partners","Enquiry form → email"),("drive","Drive with OKASTO → apply")],"Forms send email only at first; no partner portal yet"),
+ ("J8","Dispatch demo (2-tier)","เดโมจัดงานคนขับ",[("dispatch","Demo index"),("ddesk","Release to regular team"),("dapp","Accept locks the job"),("dsign","Freelancer docs, then approve"),("ddesk","Monthly payout")],"Example data in the browser. noindex. Drivers never see the customer price. Urgent jobs can be opened to everyone with a bonus."),
 ]
 
 BENCH = [

@@ -17,6 +17,11 @@ To go live, upload the whole folder to any static host (Netlify, Cloudflare Page
 | `js/app.js`, `js/places.js` | Site logic and place search |
 | `css/style.css` | Design (brand colours are at the top in `:root`) |
 | `img/`, `fonts/`, `favicon*`, `apple-touch-icon.png` | Logo files, OG image, self-hosted fonts |
+| `dispatch/` | **Not for the public.** Driver-dispatch demo (`noindex`): role switcher, driver app, freelancer sign-up, dispatch desk. Do not link to it. |
+| `data/dispatch.json`, `js/dispatch-data.js` | Example drivers, jobs and payout rates for that demo (the `.js` file is the `file://` copy) |
+| `js/dispatch-core.js`, `js/dispatch.js`, `css/dispatch.css` | Demo rules and screens. State stays in this browser (`localStorage`). |
+
+Open `dispatch/index.html` and pick a role. Accepting a job in the driver app shows it as assigned on the desk, including in another tab. **Reset example data** on the demo index restores the sample. Every figure is example data. Drivers see their payout only, never the customer price. There is no backend.
 
 ---
 
