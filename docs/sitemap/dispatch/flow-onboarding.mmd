@@ -1,0 +1,41 @@
+flowchart TD
+  line["เข้าสู่ระบบด้วย LINE<br/>จำลอง ไม่ได้เชื่อม LINE จริง<br/>LINE login"]
+  need{"มีบัญชีที่อนุมัติแล้วหรือยัง"}
+  form["กรอกชื่อ เบอร์ โซน<br/>ประเภทรถ และทะเบียน"]
+  docs["อัปโหลด 3 อย่าง<br/>ใบขับขี่ · ทะเบียนรถ · รูปรถ<br/>Upload documents"]
+  pending["รออนุมัติ · Pending<br/>เข้า LINE แล้วก็ยังไม่เห็นงาน"]
+  review{"แอดมินตรวจเอกสาร<br/>Drivers · รออนุมัติ"}
+  ok["อนุมัติ · Approve"]
+  nok["เอกสารไม่ครบ อนุมัติไม่ได้<br/>เช่น ยังไม่มีรูปรถ<br/>คงสถานะรออนุมัติ"]
+  sees["เห็นงานที่รถและโซนตรง<br/>Sees matching jobs"]
+  cap{"งานที่ยังไม่จบครบ 3 หรือยัง"}
+  take["รับงานได้ · Accept"]
+  full["รับเพิ่มไม่ได้<br/>สูงสุด 3 งาน"]
+  cancels{"ยกเลิกครบ 3 ครั้งหรือยัง"}
+  active["ยังรับงานต่อได้"]
+  susp["ระงับอัตโนมัติ · Suspended<br/>รับงานใหม่ไม่ได้<br/>งานที่รับไว้แล้วยังทำให้จบได้"]
+  back["แอดมินเปิดใช้อีกครั้ง<br/>แล้วเห็นงานได้อีก<br/>Reinstate"]
+
+  line --> need
+  need -->|ยังไม่เคยสมัคร| form --> docs --> pending
+  need -->|รออนุมัติอยู่| pending
+  pending --> review
+  review -->|เอกสารครบ| ok --> sees
+  review -->|ไม่ครบ| nok
+  need -->|อนุมัติแล้ว| sees
+  sees --> cap
+  cap -->|ยังไม่ครบ| take --> cancels
+  cap -->|ครบ 3| full
+  cancels -->|ยังไม่ถึง 3| active
+  cancels -->|ครบ 3| susp
+  need -->|ถูกระงับอยู่แล้ว| susp
+  susp --> back
+
+  classDef join fill:#FFF4DC,stroke:#8A5A00,color:#04306D
+  classDef good fill:#E6F9EC,stroke:#0A7A2F,color:#04306D
+  classDef bad fill:#FDECEC,stroke:#C2141B,color:#04306D
+  classDef ask fill:#FFFFFF,stroke:#1668B8,color:#04306D
+  class line,form,docs,pending,nok join
+  class ok,sees,take,active,back good
+  class full,susp bad
+  class need,review,cap,cancels ask
