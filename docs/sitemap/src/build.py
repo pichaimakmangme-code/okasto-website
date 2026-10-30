@@ -78,7 +78,7 @@ def diagram():
     trust = card(BYID["about"]) + '<div class="kid">' + card(BYID["standards"]) + card(BYID["reviews"]) + '</div>' + "".join(card(BYID[i]) for i in ["policy","terms","privacy","cookies","404"])
     b2b = card(BYID["partners"]) + '<div class="kid">' + card(BYID["corporate"]) + card(BYID["hotels"]) + '</div>' + card(BYID["drive"]) + \
           f'<div class="pnote"><b>Also available on</b> (grey text, no logos)<br>{E(PARTNERS)}</div>'
-    back = '<div class="lock">Login required · not linked from the public site · ต้องล็อกอิน</div>' + "".join(card(BYID[i]) for i in ["admin","bookings","dispatch","inbox"])
+    back = '<div class="lock">Login required · not linked from the public site · ต้องล็อกอิน</div>' + "".join(card(BYID[i]) for i in ["admin","bookings","dispatch"]) + '<div class="kid">' + "".join(card(BYID[i]) for i in ["dapp","dsign","ddesk"]) + '</div>' + card(BYID["inbox"])
     W = {"core":440,"book":440,"seo":900,"sup":440,"trust":440,"b2b":440,"back":400}
     cols = "".join(column(g, inner, W[g]) for g, inner in [("core",core),("book",book),("seo",seo),("sup",sup),("trust",trust),("b2b",b2b),("back",back)])
 
@@ -94,7 +94,7 @@ def diagram():
 <tr class="tot"><td>All pages</td><td>{cnt["built"]}</td><td>{cnt["launch"]}</td><td>{cnt["p2"]}</td><td>{len(P)}</td></tr></table>
 <p>Route-page template counted once (6 routes at launch). Funnel steps count as pages.</p>
 <div class="scope"><b>{cnt["built"]+cnt["launch"]}</b> pages for go-live (Built + Launch)<span class="th">หน้าที่ต้องพร้อมวันเปิดเว็บ</span></div>
-<h4>New in v2 · สิ่งที่เพิ่มจาก v1</h4><ul class="new"><li>Full booking funnel incl. failed-payment recovery</li><li>Manage booking + meeting points + help centre</li><li>SEO pages per airport, city and route</li><li>Partner / corporate / driver doors (Phase 2)</li><li>Build status on every page + journeys</li></ul></div>'''
+<h4>New in v2 · สิ่งที่เพิ่มจาก v1</h4><ul class="new"><li>Full booking funnel incl. failed-payment recovery</li><li>Manage booking + meeting points + help centre</li><li>SEO pages per airport, city and route</li><li>Partner / corporate / driver doors (Phase 2)</li><li>Dispatch demo: 2-tier driver jobs, freelancer sign-up, payouts (noindex, example data)</li><li>Build status on every page + journeys</li></ul></div>'''
 
     legend = "".join(f'<span class="lg"><i class="sw" style="background:{g[3]}"></i>{E(g[1])}</span>' for g in GROUPS)
     globals_ = ["Header nav: Routes & Prices · Fleet · Charter · Service info · Help · <b>Book & Pay</b>",
@@ -220,7 +220,7 @@ def doc():
 <p class="note">Levels: L0 {lv[0]} · L1 {lv[1]} · L2 {lv[2]} · L3 {lv[3]} (route template, 6 routes at launch). “Built” = exists in the current build, many as sections of the one-page Home; the plan gives them their own URLs.</p>
 <h3>Status meaning</h3><ul><li>{chip_status("built")} exists in the current build (some need their own URL)</li><li>{chip_status("launch")} must be ready before go-live</li><li>{chip_status("p2")} after launch, when data / partners / backend are ready</li></ul></div>
 <div><h3>On every page</h3><ul><li>Header: Routes & Prices · Fleet · Charter · Service info · Help · <b>Book & Pay</b> button</li><li>Footer: About · Contact · Booking policy · Terms · Privacy · Partners · “Also available on” partner names (grey text)</li><li>Language switch TH / EN / 中文</li><li>Floating LINE / WhatsApp for questions only — never for booking or payment</li><li>Mobile: sticky “Book & Pay” bar</li></ul>
-<h3>URL and SEO rules</h3><ul><li>One URL per language: <span class="mono">/en/…</span> · <span class="mono">/th/…</span> · <span class="mono">/zh/…</span> with hreflang + x-default</li><li>Short English slugs, e.g. <span class="mono">/en/transfer/bkk-to-pattaya</span></li><li>Booking, manage, draft legal and admin pages: <b>noindex</b></li><li>Schema: Organization, FAQPage on FAQ/landing pages; XML sitemap + robots.txt</li><li>Every landing page has its own prefilled booking widget</li></ul>
+<h3>URL and SEO rules</h3><ul><li>One URL per language: <span class="mono">/en/…</span> · <span class="mono">/th/…</span> · <span class="mono">/zh/…</span> with hreflang + x-default</li><li>Short English slugs, e.g. <span class="mono">/en/transfer/bkk-to-pattaya</span></li><li>Booking, manage, draft legal and admin pages: <b>noindex</b></li><li>Dispatch demo (<span class="mono">/dispatch</span>, driver app, freelancer sign-up, dispatch desk) is private: <b>noindex</b>, example data, not linked from the public site</li><li>Schema: Organization, FAQPage on FAQ/landing pages; XML sitemap + robots.txt</li><li>Every landing page has its own prefilled booking widget</li></ul>
 <h3>Payment</h3><ul><li>Online only via Beam (card · PromptPay · mobile banking · e-wallet as enabled). No cash, no manual transfer.</li></ul></div></div>'''))
     # spec
     for gid, gname, gth, ink, tint, gl in GROUPS:
@@ -241,7 +241,7 @@ def doc():
         st = '<span class="ja">→</span>'.join(f'<span class="js" style="--ink:{G[BYID[pid]["group"]][3]};--tint:{G[BYID[pid]["group"]][4]};--gl:{G[BYID[pid]["group"]][5]}">{E(l)}</span>' for pid,l in steps)
         jr.append(f'<div class="jr"><div class="jn"><b>{code}</b> {E(name)}<div class="th">{E(th)}</div></div><div><div class="jst">{st}</div><div class="jnote">{E(note)}</div></div></div>')
     out.append(pg(h("User journeys","เส้นทางผู้ใช้หลัก","4 · Journeys") + "".join(jr) +
-      '<p class="note">Funnel target: price on the first screen, payment in 4 steps (search → vehicle → details → pay). Free cancellation ≥24 h shown at vehicle choice and review.</p>'))
+      '<p class="note">Funnel target: price on the first screen, payment in 4 steps (search → vehicle → details → pay). Free cancellation ≥24 h shown at vehicle choice and review. J8 is the dispatch demo (example data, noindex).</p>', "flow"))
     # benchmark
     br = "".join(f'<tr><td><b>{E(n)}</b><div class="mono">{E(u)}</div></td><td>{E(s)}</td><td>{E(b)}</td><td>{E(w)}</td></tr>' for n,u,s,b,w in BENCH)
     out.append(f'''<section class="pg flow">{h("Benchmark: what we borrowed","เรียนรู้จากเว็บชั้นนำ","5 · Benchmark")}
@@ -262,6 +262,7 @@ def doc():
 <li>Manage booking is “lite” at launch (lookup + change/cancel request by email) because there is no booking backend yet.</li>
 <li>Route pages are generated from prices.json; travel times and distances are TBC and must not be guessed.</li>
 <li>Partner / B2B and driver-recruitment pages are proposals; commission, net rates and API need CEO decision.</li>
+<li>The dispatch demo (/dispatch) is example data in the browser: regular team first, then matching freelancers. No backend. noindex and not linked from the public site. Drivers see their payout only.</li>
 <li>Corporate customers also pay online via Beam; tax-invoice process TBC.</li>
 <li>Reviews and safety pages appear only with real, verifiable content.</li>
 <li>Domain and final URL language prefix are TBC.</li></ol></div>

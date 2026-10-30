@@ -1,0 +1,42 @@
+flowchart TD
+  ping["ได้แจ้งเตือนใน LINE จำลอง<br/>รอบทีมประจำ · งานฟรีแลนซ์ · ด่วนมีโบนัส<br/>LINE notification"]
+  login["เข้าสู่ระบบด้วย LINE<br/>LINE login"]
+  board["เปิดกระดานงาน · Job board<br/>เห็นเฉพาะรถและโซนของตัวเอง<br/>กรอง ทั้งหมด · รอบทีมประจำ · ด่วน · มีโบนัส"]
+  open["เปิดใบงาน · Job detail<br/>วันเวลา · จุดรับ → จุดส่ง<br/>เที่ยวบิน · ผู้โดยสาร · กระเป๋า · ค่าตอบแทน"]
+  who{"รับงานนี้ได้ไหม"}
+  win["รอบ 30 นาที<br/>เฉพาะคนขับประจำ"]
+  free["หลังหมดเวลา<br/>เฉพาะฟรีแลนซ์ที่ตรงกัน"]
+  all["งานด่วน เปิดทุกคน<br/>มีโบนัสได้"]
+  taken["มีคนรับไปแล้ว<br/>กลับไปดูกระดาน"]
+  cap["งานค้างครบ 3<br/>ฟรีแลนซ์รับเพิ่มไม่ได้"]
+  accept["กดรับงาน · Accept<br/>งานล็อกให้คนนี้คนเดียว"]
+  mine["งานของฉัน · My jobs"]
+  go["กำลังไป"]
+  here["ถึงจุดรับ"]
+  onboard["รับลูกค้าแล้ว"]
+  drop["ส่งเสร็จ"]
+  earn["หน้ารายได้ · Earnings<br/>เห็นเฉพาะค่าตอบแทนของตัวเอง<br/>ไม่เห็นราคาที่ลูกค้าจ่าย"]
+  quit["ยกเลิกก่อนรับลูกค้า<br/>ฟรีแลนซ์ถูกนับครั้ง<br/>งานกลับเข้าคิว"]
+
+  ping --> login --> board --> open --> who
+  who -->|รอบทีมประจำ| win --> accept
+  who -->|คิวฟรีแลนซ์| free --> accept
+  who -->|เปิดทุกคน| all --> accept
+  who -->|ถูกล็อกแล้ว| taken
+  who -->|ครบ 3 งาน| cap
+  accept --> mine --> go --> here --> onboard --> drop --> earn
+  go --> quit
+  here --> quit
+
+  classDef line fill:#E7F8EE,stroke:#06C755,color:#04306D
+  classDef app fill:#EAF4FE,stroke:#04306D,color:#04306D
+  classDef step fill:#E6F9EC,stroke:#0A7A2F,color:#04306D
+  classDef warn fill:#FFF4DC,stroke:#8A5A00,color:#04306D
+  classDef bad fill:#FDECEC,stroke:#C2141B,color:#04306D
+  classDef ask fill:#FFFFFF,stroke:#1668B8,color:#04306D
+  class ping,login line
+  class board,open,mine,earn app
+  class go,here,onboard,drop,accept step
+  class win,free,all,quit warn
+  class taken,cap bad
+  class who ask

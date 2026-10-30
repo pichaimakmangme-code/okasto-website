@@ -1,0 +1,35 @@
+flowchart TD
+  newJob["งานใหม่จากการจอง<br/>New booking"] --> hold["ยังไม่ปล่อย · Hold"]
+  hold --> choice{"แอดมินจัดอย่างไร"}
+  choice -->|มอบหมายตรง| assign["มอบหมายให้คนขับประจำ<br/>รถและโซนต้องตรง<br/>Assign to regular"]
+  choice -->|ปล่อยให้ทีมก่อน| release["ปล่อยรอบ 30 นาที<br/>เฉพาะคนขับประจำ<br/>Release"]
+  release --> winQ{"มีคนประจำรับใน 30 นาที?"}
+  winQ -->|หมดเวลา| auto["เปิดให้ฟรีแลนซ์ที่รถและโซนตรง<br/>Auto-open to freelancers"]
+  auto --> urgQ{"รับภายใน 3 ชั่วโมง<br/>และยังไม่มีคน?"}
+  urgQ -->|ยังไม่ด่วน| stay["คงอยู่คิวฟรีแลนซ์"]
+  urgQ -->|ด่วน| openAll["เปิดทุกคน และ/หรือใส่โบนัส<br/>Open to all / bonus"]
+  assign --> lock["คนแรกที่กดรับ ได้งาน และงานล็อก<br/>First Accept locks"]
+  winQ -->|มีคนรับ| lock
+  openAll --> lock
+  lock --> go["กำลังไป · On the way"]
+  go --> here["ถึงจุดรับ · At pickup"]
+  here --> onboard["รับลูกค้าแล้ว · Passenger on board"]
+  onboard --> doneJob["ส่งเสร็จ · Completed"]
+  doneJob --> payout["จ่ายรายเดือน · Payout<br/>คนขับเห็นเฉพาะค่าตอบแทน"]
+
+  lock --- reassign["ทางแยก: ย้ายให้คนขับประจำคนอื่น<br/>แล้วเริ่มที่ขั้นกำลังไป · Reassign"]
+  go --- drvCancel["ทางแยก: คนขับยกเลิกก่อนรับลูกค้า<br/>ถึงจุดรับก็ยังยกเลิกได้ · นับครั้ง"]
+  drvCancel --- pool["งานกลับเข้าคิวตามชั้นเดิม"]
+  hold --- admCancel["ทางแยก: แอดมินยกเลิกทั้งงาน<br/>ทำได้ก่อนส่งเสร็จ · ไม่นับครั้งคนขับ"]
+  admCancel --- cancelled["ยกเลิกแล้ว · Cancelled"]
+
+  classDef main fill:#EAF4FE,stroke:#04306D,color:#04306D
+  classDef step fill:#E6F9EC,stroke:#0A7A2F,color:#04306D
+  classDef warn fill:#FFF4DC,stroke:#8A5A00,color:#04306D
+  classDef bad fill:#FDECEC,stroke:#C2141B,color:#04306D
+  classDef ask fill:#FFFFFF,stroke:#1668B8,color:#04306D
+  class newJob,hold,assign,release,auto,openAll,lock,stay main
+  class go,here,onboard,doneJob,payout step
+  class reassign,pool warn
+  class choice,winQ,urgQ ask
+  class drvCancel,admCancel,cancelled bad

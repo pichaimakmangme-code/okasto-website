@@ -1,0 +1,58 @@
+flowchart TB
+  hub["สลับบทบาท · Demo index<br/>dispatch/index.html"]
+
+  subgraph AD["แอดมิน · Dispatch desk"]
+    direction TB
+    jobs["งาน · Jobs<br/>admin.html#/jobs"]
+    act["แผงจัดการงาน<br/>มอบหมายคนขับประจำ · ปล่อย 30 นาที<br/>เปิดทุกคน · โบนัส · ยกเลิก · ย้ายคนขับ"]
+    drv["คนขับ · Drivers<br/>admin.html#/drivers"]
+    appr["แผงคนขับ<br/>อนุมัติ · ระงับ · เปิดใช้"]
+    pay["จ่ายรายเดือน · Payouts<br/>#/payouts"]
+    rate["เรทตัวอย่าง · Rates<br/>#/rates"]
+  end
+
+  subgraph DR["แอปคนขับ · แถบล่างสลับสี่หน้า"]
+    direction TB
+    login["เข้าสู่ระบบด้วย LINE<br/>LINE login · driver.html"]
+    board["งานที่รับได้ · Job board<br/>#/board"]
+    detail["รายละเอียดงาน · Job detail<br/>#/job/…"]
+    mine["งานของฉัน · My jobs<br/>#/mine"]
+    earn["รายได้ · Earnings<br/>#/earn"]
+    inbox["แจ้งเตือน LINE · LINE inbox<br/>#/line"]
+    stop["ถูกระงับ · Suspended<br/>รับงานใหม่ไม่ได้"]
+  end
+
+  subgraph OB["ฟรีแลนซ์ · Sign-up"]
+    direction TB
+    sign["สมัครและอัปโหลดเอกสาร<br/>Sign-up · signup.html"]
+    wait["รออนุมัติ · Pending<br/>เข้า LINE แล้วก็ยังไม่เห็นงาน"]
+  end
+
+  hub --> jobs
+  hub --> login
+  hub --> sign
+  jobs --> act
+  jobs --> drv
+  jobs --> pay
+  jobs --> rate
+  drv --> appr
+  appr -->|อนุมัติแล้ว| board
+  sign --> wait
+  wait -->|เปิดแอป| login
+  login -->|ใช้งานอยู่| board
+  login -->|ถูกระงับ| stop
+  board --> detail
+  detail -->|กดรับ งานล็อก| mine
+  mine --> earn
+  inbox -->|แตะข้อความ| detail
+
+  classDef entry fill:#EAF4FE,stroke:#04306D,color:#04306D,stroke-width:2px
+  classDef desk fill:#E0F0FF,stroke:#0B5CA8,color:#04306D
+  classDef app fill:#E6F9EC,stroke:#0A7A2F,color:#04306D
+  classDef join fill:#FFF4DC,stroke:#8A5A00,color:#04306D
+  classDef bad fill:#FDECEC,stroke:#C2141B,color:#04306D
+  class hub entry
+  class jobs,act,drv,appr,pay,rate desk
+  class login,board,detail,mine,earn,inbox app
+  class sign,wait join
+  class stop bad
